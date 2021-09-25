@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Welcome, DR. {{ practitioner.first_name }}  {{ practitioner.last_name }}</h1>
+    
+    <h2>Patient list</h2>
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>SSN</th>
+            <th>Birth Date</th>
+            <th>Gender</th>
+        </tr>
+        {% for patient in patients %}
+        <tr>
+                    <td>
+                        <a href="{% url 'patient-detail' patient_id=patient.pk %}">{{ patient.first_name }}</a>
+                    </td>
+                    <td>{{ patient.last_name }}</td>
+                    <td>{{ patient.ssn }}</td>
+                    <td>{{ patient.birthdate }}</td>
+                    <td>{{ patient.gender }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
