@@ -1,0 +1,25 @@
+{% extends 'practitioner/base.html' %}
+
+{% block inner %}
+
+{% load crispy_forms_tags %}
+<h1>Create New Report</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-9">
+            {{ form.type_of_consultation|as_crispy_field }}
+        </div>
+        <div class="col-9">
+            {{ form.result|as_crispy_field }}
+        </div>
+        <div class="col-9">
+            {{ form.diagnosis|as_crispy_field }}
+        </div>
+        <div class="col-9">
+            {{ form.decision|as_crispy_field }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Create Report</button>
+</form>
+{% endblock %}
