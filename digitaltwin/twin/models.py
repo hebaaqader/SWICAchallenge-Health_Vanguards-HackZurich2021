@@ -81,6 +81,7 @@ class Case(models.Model):
     ]
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     practitioner = models.ForeignKey(Practitioner, on_delete=models.DO_NOTHING)
+    health_facility = models.ForeignKey(HealthFacility, on_delete=models.DO_NOTHING)
     date = models.DateField()
     type_of_consultation = models.CharField(max_length=100, choices=CONSULTATION_TYPES)
     result = models.TextField(blank=True)
