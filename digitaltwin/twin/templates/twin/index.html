@@ -1,0 +1,30 @@
+{% if client %}
+    <h1>Hello, {{ client.first_name }}  {{ client.last_name }}</h1>
+    <h2>Last visits</h2>
+    {% if client.case_set.exists %}
+        <ul>
+        {% for case in client.case_set.all %}
+            <li>{{ case }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        No recent visits.
+    {% endif %}
+
+    <br><br>    
+
+    <h2>Insurances</h2>
+    {% if client.insurance_set.exists %}
+        <ul>
+        {% for insurance in client.insurance_set.all %}
+            <li>{{ insurance }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        No insurances registered.
+    {% endif %}
+<br><br>    
+
+{% else %}
+    <p>No info available, new user?</p>
+{% endif %}
