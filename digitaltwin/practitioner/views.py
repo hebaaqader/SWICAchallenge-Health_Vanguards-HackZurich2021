@@ -1,11 +1,16 @@
+import logging
+
 from django.shortcuts import render
 from django.http import HttpResponse
 
 from django.views.generic.edit import FormView
 
 from twin.models import Practitioner, Patient, Case
+from twin.utils import *
 
 from practitioner.forms import CaseForm
+
+logger = logging.getLogger(__name__)
 
 def index(request):
     practitioner = Practitioner.objects.filter().first()
@@ -17,7 +22,10 @@ def patient_detail(request, patient_id):
     # TODO: Form the HL7 request and Call Mirth!
     # TODO: parse the incoming json and create a Patient object from it
     # without saving it to database
-    patient = Patient.objects.first()
+    patient = get_patient_details(patient_id)
+    if not patient:
+        logger.error("Error when getting patient data from digital twin, using patient data from local instead")
+        patient = Patient.objects.first()
     context = {'patient': patient}
     return render(request, 'practitioner/patient-detail.html', context)
 
