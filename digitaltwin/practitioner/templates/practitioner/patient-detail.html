@@ -20,6 +20,6 @@
                 <td>{{ patient.gender }}</td>
             </tr>
 </table>
-
+{{ patient.case_set.all.first }}
 <a href="{% url 'new-case' patient_id=patient.pk %}">Create New Report</a>
 {% endblock %}

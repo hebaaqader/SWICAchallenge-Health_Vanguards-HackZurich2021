@@ -5,7 +5,7 @@ from twin.models import Patient, Case, Practitioner, HealthFacility
 logger = logging.getLogger(__name__)
 
 def get_patient_details(patient_id):
-    endpoint = f"http://localhost:2021/patient-centricity?patientId={patient_id}"
+    endpoint = f"http://localhost:2020/patient-centricity?patientId={patient_id}"
     try:
         r = requests.get(endpoint)
     except requests.exceptions.RequestException as e:
@@ -14,9 +14,11 @@ def get_patient_details(patient_id):
     if r.status_code == requests.codes.ok:
         try:
             res_json = r.json()
-        except requests.exceptions.JSONDecodeError:
+        except requests.exceptions.InvalidJSONError:
             logger.error("Mirth response is not a valid JSON " + str(e))
             return
+     
+
         patient = Patient(
             id=res_json['patient_id'],
             first_name=res_json['patient_first_name'],
@@ -29,10 +31,10 @@ def get_patient_details(patient_id):
                 practitioner=Practitioner.objects.get(pk=case['practitioner_id']),
                 health_facility=HealthFacility.objects.get(pk=case['health_facility_id']),
                 date=case['date'],
-                type_of_consultation=res_json['type_of_consultation'],
-                result=res_json['result'],
-                diagnosis=res_json['diagnosis'],
-                decision=res_json['decision']
+                type_of_consultation=case['type_of_consultation'],
+                result=case['result'],
+                diagnosis=case['diagnosis'],
+                decision=case['decision']
                 )
-            patient.case_set.add(c)
+            patient.case_set.add(c, bulk=False)
         return patient

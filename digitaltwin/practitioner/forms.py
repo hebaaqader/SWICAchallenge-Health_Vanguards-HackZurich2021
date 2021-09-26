@@ -36,7 +36,7 @@ class CaseForm(forms.Form):
         endpoint = "http://localhost:2021/patient-centricity/"
         try:
             r = requests.post(endpoint, data=str.encode(msg))
-            if r.status_code == requests.codes.ok:
+            if r.status_code == 201:
                 logger.info("Write to Mirth Succeeded!: ")
             else:
                 logger.error("Write to Mirth failed with response: " + r.text)
