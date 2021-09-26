@@ -1,0 +1,341 @@
+<channel version="3.10.1">
+  <id>ce898d76-5f6e-4b9c-b234-8441a8e41185</id>
+  <nextMetaDataId>3</nextMetaDataId>
+  <name>Patient-centricity-Outbound</name>
+  <description></description>
+  <revision>30</revision>
+  <sourceConnector version="3.10.1">
+    <metaDataId>0</metaDataId>
+    <name>sourceConnector</name>
+    <properties class="com.mirth.connect.connectors.http.HttpReceiverProperties" version="3.10.1">
+      <pluginProperties>
+        <com.mirth.connect.plugins.httpauth.NoneHttpAuthProperties version="3.10.1">
+  <authType>NONE</authType>
+        </com.mirth.connect.plugins.httpauth.NoneHttpAuthProperties>
+      </pluginProperties>
+      <listenerConnectorProperties version="3.10.1">
+        <host>0.0.0.0</host>
+        <port>2020</port>
+      </listenerConnectorProperties>
+      <sourceConnectorProperties version="3.10.1">
+        <responseVariable>d2</responseVariable>
+        <respondAfterProcessing>true</respondAfterProcessing>
+        <processBatch>false</processBatch>
+        <firstResponse>false</firstResponse>
+        <processingThreads>1</processingThreads>
+        <resourceIds class="linked-hash-map">
+          <entry>
+            <string>Default Resource</string>
+            <string>[Default Resource]</string>
+          </entry>
+        </resourceIds>
+        <queueBufferSize>1000</queueBufferSize>
+      </sourceConnectorProperties>
+      <xmlBody>false</xmlBody>
+      <parseMultipart>true</parseMultipart>
+      <includeMetadata>false</includeMetadata>
+      <binaryMimeTypes>application/.*(?&lt;!json|xml)$|image/.*|video/.*|audio/.*</binaryMimeTypes>
+      <binaryMimeTypesRegex>true</binaryMimeTypesRegex>
+      <responseContentType>application/json</responseContentType>
+      <responseDataTypeBinary>false</responseDataTypeBinary>
+      <responseStatusCode></responseStatusCode>
+      <responseHeaders class="linked-hash-map"/>
+      <responseHeadersVariable></responseHeadersVariable>
+      <useResponseHeadersVariable>false</useResponseHeadersVariable>
+      <charset>UTF-8</charset>
+      <contextPath>patient-centricity</contextPath>
+      <timeout>30000</timeout>
+      <staticResources/>
+    </properties>
+    <transformer version="3.10.1">
+      <elements>
+        <com.mirth.connect.plugins.mapper.MapperStep version="3.10.1">
+          <name>patientIdparam</name>
+          <sequenceNumber>0</sequenceNumber>
+          <enabled>true</enabled>
+          <variable>patientIdparam</variable>
+          <mapping>sourceMap.get(&apos;parameters&apos;).getParameter(&apos;patientId&apos;).toLowerCase( )</mapping>
+          <defaultValue></defaultValue>
+          <replacements/>
+          <scope>CHANNEL</scope>
+        </com.mirth.connect.plugins.mapper.MapperStep>
+        <com.mirth.connect.plugins.destinationsetfilter.DestinationSetFilterStep version="3.10.1">
+          <name>Filter destination(s) if &quot;sourceMap.get(&apos;method&apos;)&quot; equals &apos;GET&apos;</name>
+          <sequenceNumber>1</sequenceNumber>
+          <enabled>true</enabled>
+          <behavior>REMOVE_ALL_EXCEPT</behavior>
+          <metaDataIds>
+            <int>2</int>
+          </metaDataIds>
+          <field>sourceMap.get(&apos;method&apos;)</field>
+          <condition>EQUALS</condition>
+          <values>
+            <string>&apos;GET&apos;</string>
+          </values>
+        </com.mirth.connect.plugins.destinationsetfilter.DestinationSetFilterStep>
+      </elements>
+      <inboundTemplate encoding="base64"></inboundTemplate>
+      <outboundTemplate encoding="base64"></outboundTemplate>
+      <inboundDataType>XML</inboundDataType>
+      <outboundDataType>XML</outboundDataType>
+      <inboundProperties class="com.mirth.connect.plugins.datatypes.xml.XMLDataTypeProperties" version="3.10.1">
+        <serializationProperties class="com.mirth.connect.plugins.datatypes.xml.XMLSerializationProperties" version="3.10.1">
+          <stripNamespaces>false</stripNamespaces>
+        </serializationProperties>
+        <batchProperties class="com.mirth.connect.plugins.datatypes.xml.XMLBatchProperties" version="3.10.1">
+          <splitType>Element_Name</splitType>
+          <elementName></elementName>
+          <level>1</level>
+          <query></query>
+          <batchScript></batchScript>
+        </batchProperties>
+      </inboundProperties>
+      <outboundProperties class="com.mirth.connect.plugins.datatypes.xml.XMLDataTypeProperties" version="3.10.1">
+        <serializationProperties class="com.mirth.connect.plugins.datatypes.xml.XMLSerializationProperties" version="3.10.1">
+          <stripNamespaces>false</stripNamespaces>
+        </serializationProperties>
+        <batchProperties class="com.mirth.connect.plugins.datatypes.xml.XMLBatchProperties" version="3.10.1">
+          <splitType>Element_Name</splitType>
+          <elementName></elementName>
+          <level>1</level>
+          <query></query>
+          <batchScript></batchScript>
+        </batchProperties>
+      </outboundProperties>
+    </transformer>
+    <filter version="3.10.1">
+      <elements/>
+    </filter>
+    <transportName>HTTP Listener</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <waitForPrevious>true</waitForPrevious>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector version="3.10.1">
+      <metaDataId>2</metaDataId>
+      <name>get-patient-history</name>
+      <properties class="com.mirth.connect.connectors.js.JavaScriptDispatcherProperties" version="3.10.1">
+        <pluginProperties/>
+        <destinationConnectorProperties version="3.10.1">
+          <queueEnabled>false</queueEnabled>
+          <sendFirst>false</sendFirst>
+          <retryIntervalMillis>10000</retryIntervalMillis>
+          <regenerateTemplate>false</regenerateTemplate>
+          <retryCount>0</retryCount>
+          <rotate>false</rotate>
+          <includeFilterTransformer>false</includeFilterTransformer>
+          <threadCount>1</threadCount>
+          <threadAssignmentVariable></threadAssignmentVariable>
+          <validateResponse>false</validateResponse>
+          <resourceIds class="linked-hash-map">
+            <entry>
+              <string>Default Resource</string>
+              <string>[Default Resource]</string>
+            </entry>
+          </resourceIds>
+          <queueBufferSize>1000</queueBufferSize>
+          <reattachAttachments>true</reattachAttachments>
+        </destinationConnectorProperties>
+        <script>
+var dbConn;
+
+try {
+	dbConn = DatabaseConnectionFactory.createDatabaseConnection(&apos;org.postgresql.Driver&apos;,&apos;jdbc:postgresql://localhost:5432/hackathon&apos;,&apos;postgres&apos;,&apos;admin&apos;);
+	var result = dbConn.executeCachedQuery(&quot;SELECT &quot;+
+&quot;	twin_patient.first_name as patient_fname,&quot;+
+&quot;	twin_patient.last_name as patient_lname,&quot;+
+&quot;	twin_patient.gender,&quot;+
+&quot;	twin_patient.birthdate,&quot;+
+&quot;	twin_patient.ssn,&quot;+
+&quot;	twin_patient.id AS patient_id,&quot;+
+&quot;	TWIN_CASE.ID AS CASE_ID ,&quot;+
+&quot;	TWIN_CASE.DATE,&quot;+
+&quot;	TWIN_CASE.TYPE_OF_CONSULTATION ,&quot;+
+&quot;	TWIN_CASE.RESULT ,&quot;+
+&quot;	TWIN_CASE.DIAGNOSIS ,&quot;+
+&quot;	TWIN_CASE.DECISION ,&quot;+
+&quot;	TWIN_CASE.PRACTITIONER_ID ,&quot;+
+&quot;	twin_practitioner.last_name AS Practitioner_lname,&quot;+
+&quot;	twin_practitioner.first_name AS Practitioner_fname,&quot;+
+&quot;	TWIN_CASE.HEALTH_FACILITY_ID ,&quot;+
+&quot;	twin_healthfacility.\&quot;name\&quot;	&quot;+
+&quot; FROM &quot;+
+&quot;	TWIN_CASE INNER JOIN twin_patient on (TWIN_CASE.PATIENT_ID = twin_patient.id)&quot;+
+&quot;	INNER JOIN twin_practitioner on (TWIN_CASE.PRACTITIONER_ID = twin_practitioner.id)&quot;+
+&quot;	INNER JOIN twin_healthfacility on (TWIN_CASE.HEALTH_FACILITY_ID = twin_healthfacility.id) &quot;+
+&quot; WHERE TWIN_CASE.PATIENT_ID = &quot; +$(&apos;patientIdparam&apos;) );
+
+	var resp = {
+   &quot;patient_id&quot;: &quot;&quot;,
+   &quot;patient_first_name&quot;:&quot;&quot;,
+   &quot;patient_last_name&quot;:&quot;&quot;,
+   &quot;patient_birthdate&quot;:&quot;&quot;,
+   &quot;patient_gender&quot;:&quot;&quot;,
+   &quot;cases&quot;:[
+  
+   ]
+}
+
+	
+	
+while(result.next()) {
+		resp.patient_id =  result.getString(&apos;patient_id&apos;);
+		resp.patient_first_name =  result.getString(&apos;patient_fname&apos;);
+		resp.patient_last_name =  result.getString(&apos;patient_lname&apos;);
+		resp.patient_birthdate =  result.getString(&apos;birthdate&apos;);
+		resp.patient_gender =  result.getString(&apos;gender&apos;);
+
+	resp.cases.push({ 
+        &quot;practitioner_id&quot;: result.getString(&apos;PRACTITIONER_ID&apos;),
+         &quot;practitioner_first_name&quot;: result.getString(&apos;Practitioner_fname&apos;),
+         &quot;practitioner_last_name&quot;: result.getString(&apos;Practitioner_lname&apos;),
+         &quot;health_facility_id&quot;: result.getString(&apos;HEALTH_FACILITY_ID&apos;),
+         &quot;health_facility_name&quot;: result.getString(&apos;name&apos;),
+         &quot;date&quot;: result.getString(&apos;DATE&apos;),
+         &quot;type_of_consultation&quot;: result.getString(&apos;TYPE_OF_CONSULTATION&apos;),
+         &quot;result&quot;: result.getString(&apos;RESULT&apos;),
+         &quot;diagnosis&quot;: result.getString(&apos;DIAGNOSIS&apos;),
+         &quot;decision&quot;: result.getString(&apos;DECISION&apos;),	
+		});
+		
+}
+
+		
+	return JSON.stringify(resp);
+	
+} finally {
+	if (dbConn) { 
+		dbConn.close();
+	}
+}
+
+</script>
+      </properties>
+      <transformer version="3.10.1">
+        <elements/>
+        <inboundTemplate encoding="base64"></inboundTemplate>
+        <outboundTemplate encoding="base64"></outboundTemplate>
+        <inboundDataType>XML</inboundDataType>
+        <outboundDataType>XML</outboundDataType>
+        <inboundProperties class="com.mirth.connect.plugins.datatypes.xml.XMLDataTypeProperties" version="3.10.1">
+          <serializationProperties class="com.mirth.connect.plugins.datatypes.xml.XMLSerializationProperties" version="3.10.1">
+            <stripNamespaces>false</stripNamespaces>
+          </serializationProperties>
+          <batchProperties class="com.mirth.connect.plugins.datatypes.xml.XMLBatchProperties" version="3.10.1">
+            <splitType>Element_Name</splitType>
+            <elementName></elementName>
+            <level>1</level>
+            <query></query>
+            <batchScript></batchScript>
+          </batchProperties>
+        </inboundProperties>
+        <outboundProperties class="com.mirth.connect.plugins.datatypes.xml.XMLDataTypeProperties" version="3.10.1">
+          <serializationProperties class="com.mirth.connect.plugins.datatypes.xml.XMLSerializationProperties" version="3.10.1">
+            <stripNamespaces>false</stripNamespaces>
+          </serializationProperties>
+          <batchProperties class="com.mirth.connect.plugins.datatypes.xml.XMLBatchProperties" version="3.10.1">
+            <splitType>Element_Name</splitType>
+            <elementName></elementName>
+            <level>1</level>
+            <query></query>
+            <batchScript></batchScript>
+          </batchProperties>
+        </outboundProperties>
+      </transformer>
+      <responseTransformer version="3.10.1">
+        <elements/>
+        <inboundTemplate encoding="base64"></inboundTemplate>
+        <outboundTemplate encoding="base64"></outboundTemplate>
+        <inboundDataType>XML</inboundDataType>
+        <outboundDataType>XML</outboundDataType>
+        <inboundProperties class="com.mirth.connect.plugins.datatypes.xml.XMLDataTypeProperties" version="3.10.1">
+          <serializationProperties class="com.mirth.connect.plugins.datatypes.xml.XMLSerializationProperties" version="3.10.1">
+            <stripNamespaces>false</stripNamespaces>
+          </serializationProperties>
+          <batchProperties class="com.mirth.connect.plugins.datatypes.xml.XMLBatchProperties" version="3.10.1">
+            <splitType>Element_Name</splitType>
+            <elementName></elementName>
+            <level>1</level>
+            <query></query>
+            <batchScript></batchScript>
+          </batchProperties>
+        </inboundProperties>
+        <outboundProperties class="com.mirth.connect.plugins.datatypes.xml.XMLDataTypeProperties" version="3.10.1">
+          <serializationProperties class="com.mirth.connect.plugins.datatypes.xml.XMLSerializationProperties" version="3.10.1">
+            <stripNamespaces>false</stripNamespaces>
+          </serializationProperties>
+          <batchProperties class="com.mirth.connect.plugins.datatypes.xml.XMLBatchProperties" version="3.10.1">
+            <splitType>Element_Name</splitType>
+            <elementName></elementName>
+            <level>1</level>
+            <query></query>
+            <batchScript></batchScript>
+          </batchProperties>
+        </outboundProperties>
+      </responseTransformer>
+      <filter version="3.10.1">
+        <elements/>
+      </filter>
+      <transportName>JavaScript Writer</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <waitForPrevious>true</waitForPrevious>
+    </connector>
+  </destinationConnectors>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+// Responses returned from here will be stored as &quot;Postprocessor&quot; in the response map
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</deployScript>
+  <undeployScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</undeployScript>
+  <properties version="3.10.1">
+    <clearGlobalChannelMap>true</clearGlobalChannelMap>
+    <messageStorageMode>DEVELOPMENT</messageStorageMode>
+    <encryptData>false</encryptData>
+    <removeContentOnCompletion>false</removeContentOnCompletion>
+    <removeOnlyFilteredOnCompletion>false</removeOnlyFilteredOnCompletion>
+    <removeAttachmentsOnCompletion>false</removeAttachmentsOnCompletion>
+    <initialState>STARTED</initialState>
+    <storeAttachments>true</storeAttachments>
+    <metaDataColumns>
+      <metaDataColumn>
+        <name>SOURCE</name>
+        <type>STRING</type>
+        <mappingName>mirth_source</mappingName>
+      </metaDataColumn>
+      <metaDataColumn>
+        <name>TYPE</name>
+        <type>STRING</type>
+        <mappingName>mirth_type</mappingName>
+      </metaDataColumn>
+    </metaDataColumns>
+    <attachmentProperties version="3.10.1">
+      <type>None</type>
+      <properties/>
+    </attachmentProperties>
+    <resourceIds class="linked-hash-map">
+      <entry>
+        <string>Default Resource</string>
+        <string>[Default Resource]</string>
+      </entry>
+    </resourceIds>
+  </properties>
+  <exportData>
+    <metadata>
+      <enabled>true</enabled>
+      <lastModified>
+        <time>1632620371455</time>
+        <timezone>Africa/Cairo</timezone>
+      </lastModified>
+      <pruningSettings>
+        <archiveEnabled>true</archiveEnabled>
+      </pruningSettings>
+    </metadata>
+  </exportData>
+</channel>
