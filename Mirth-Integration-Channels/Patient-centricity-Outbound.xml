@@ -3,7 +3,7 @@
   <nextMetaDataId>3</nextMetaDataId>
   <name>Patient-centricity-Outbound</name>
   <description></description>
-  <revision>30</revision>
+  <revision>31</revision>
   <sourceConnector version="3.10.1">
     <metaDataId>0</metaDataId>
     <name>sourceConnector</name>
@@ -177,10 +177,10 @@ try {
    ]
 }
 
-	
+	resp.patient_id =  $(&apos;patientIdparam&apos;);
 	
 while(result.next()) {
-		resp.patient_id =  result.getString(&apos;patient_id&apos;);
+		
 		resp.patient_first_name =  result.getString(&apos;patient_fname&apos;);
 		resp.patient_last_name =  result.getString(&apos;patient_lname&apos;);
 		resp.patient_birthdate =  result.getString(&apos;birthdate&apos;);
@@ -330,7 +330,7 @@ return;</undeployScript>
     <metadata>
       <enabled>true</enabled>
       <lastModified>
-        <time>1632620371455</time>
+        <time>1632630188135</time>
         <timezone>Africa/Cairo</timezone>
       </lastModified>
       <pruningSettings>
