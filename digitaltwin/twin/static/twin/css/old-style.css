@@ -11826,6 +11826,9 @@ section#contact form#contactForm :-ms-input-placeholder {
 .client-information h2{
   margin-bottom: 1rem;
 }
+.client-information p{
+  font-weight: 800;
+}
 .client-information ul{
   padding-left: 0;
 }
@@ -11850,8 +11853,6 @@ section#contact form#contactForm :-ms-input-placeholder {
   margin-bottom: 2rem;
 
 }
-.client-information-ul li:last-child{
-}
 
 .section-dr h1{
   margin-bottom: 2rem;
@@ -11873,4 +11874,8 @@ section#contact form#contactForm :-ms-input-placeholder {
   padding: 1rem;
   border: 1px solid #ced4da;
   border-radius: 0.25rem
+}
+
+.dr-reports{
+
 }

@@ -27,17 +27,19 @@
             </tbody>
         </table>
     </div>
-    Reports
-    {% if patient.case_set.exists %}
-        {% for case in patient.case_set.all %}
-            <ul class="client-information-ul">
-                <li><span>Practitioner:</span> {{ case.practitioner }}</li>
-                <li><span>Date:</span> {{ case.date }}</li>
-                <li><span>Result:</span> {{ case.result }}</li>
-                <li><span>Diagnosis:</span> {{ case.diagnosis }}</li>
-            </ul>
+    <div class="dr-reports client-information">
+        <p>Reports</p>
+        {% if patient.case_set.exists %}
+            {% for case in patient.case_set.all %}
+                <ul class="client-information-ul">
+                    <li><span>Practitioner:</span> {{ case.practitioner }}</li>
+                    <li><span>Date:</span> {{ case.date }}</li>
+                    <li><span>Result:</span> {{ case.result }}</li>
+                    <li><span>Diagnosis:</span> {{ case.diagnosis }}</li>
+                </ul>
             {% endfor %}
-            {% endif %}
+        {% endif %}
+    </div>
     <div class="dr-box dr-box-search">
         <a href="{% url 'new-case' patient_id=patient.pk %}">Create New Report</a>
     </div>
