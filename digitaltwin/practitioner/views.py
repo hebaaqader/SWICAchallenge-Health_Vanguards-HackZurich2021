@@ -39,3 +39,12 @@ class CaseFormView(FormView):
         # It should return an HttpResponse.
         form.send_hl7()
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        patient_id = self.kwargs.get('patient_id')
+        practitioner = Practitioner.objects.filter().first() # TODO: get from session
+        context = super(CaseFormView, self).get_context_data(**kwargs)
+        context['form'].fields['patient_id'].initial = patient_id
+        context['form'].fields['practitioner_id'].initial = practitioner.pk
+        context['form'].fields['health_facility_id'].initial = practitioner.health_facility.first().pk
+        return context
