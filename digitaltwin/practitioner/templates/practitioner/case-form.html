@@ -3,23 +3,29 @@
 {% block inner %}
 
 {% load crispy_forms_tags %}
-<h1>Create New Report</h1>
-<form method="post">
-    {% csrf_token %}
-    <div class="row">
-        <div class="col-9">
+
+<section class="section-dr">
+    <h1>Create New Report</h1>
+
+    <div class="dr-form">
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
             {{ form.type_of_consultation|as_crispy_field }}
-        </div>
-        <div class="col-9">
+            </div>
+            <div class="mb-3">
             {{ form.result|as_crispy_field }}
-        </div>
-        <div class="col-9">
+            </div>
+            <div class="mb-3">
             {{ form.diagnosis|as_crispy_field }}
-        </div>
-        <div class="col-9">
+            </div>
+            <div class="mb-3">
             {{ form.decision|as_crispy_field }}
-        </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-success">Create Report</button>
+        </form>
     </div>
-    <button type="submit" class="btn btn-success">Create Report</button>
-</form>
+
+</section>
 {% endblock %}
