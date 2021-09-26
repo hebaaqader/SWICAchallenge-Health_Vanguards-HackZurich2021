@@ -2,27 +2,43 @@
 
 {% block inner %}
 
-    <h1>Welcome, DR. {{ practitioner.first_name }}  {{ practitioner.last_name }}</h1>
+    <section class="section-dr">
+        <h1>Welcome, Dr. {{ practitioner.first_name }}  {{ practitioner.last_name }}</h1>
     
-    <h2>Patient list</h2>
-    <table>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>SSN</th>
-            <th>Birth Date</th>
-            <th>Gender</th>
-        </tr>
-        {% for patient in patients %}
-        <tr>
-                    <td>
-                        <a href="{% url 'patient-detail' patient_id=patient.pk %}">{{ patient.first_name }}</a>
-                    </td>
-                    <td>{{ patient.last_name }}</td>
-                    <td>{{ patient.ssn }}</td>
-                    <td>{{ patient.birthdate }}</td>
-                    <td>{{ patient.gender }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+        <div class="dr-box">
+            <h2>Patient list</h2>
+            <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">SSN</th>
+                    <th scope="col">Birth Date</th>
+                    <th scope="col">Gender</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'patient-detail' patient_id=patient.pk %}">{{ patient.first_name }}</a>
+                        </td>
+                        <td>{{ patient.last_name }}</td>
+                        <td>{{ patient.ssn }}</td>
+                        <td>{{ patient.birthdate }}</td>
+                        <td>{{ patient.gender }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <div class="dr-box dr-box-search">
+            <h2>Search a patient</h2>
+            <input type="text" placeholder="Patient's name...">
+        </div>
+
+    </section>
 {% endblock %}
