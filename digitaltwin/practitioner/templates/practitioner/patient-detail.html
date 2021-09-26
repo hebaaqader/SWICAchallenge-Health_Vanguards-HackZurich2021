@@ -2,24 +2,37 @@
 
 {% block inner %}
 
-<h1>Patient Details</h1>
+<section class="section-dr">
+    <h1>Patient Details</h1>
 
-<table>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>SSN</th>
-            <th>Birth Date</th>
-            <th>Gender</th>
-        </tr>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td>{{ patient.first_name }}</td>
-                <td>{{ patient.last_name }}</td>
-                <td>{{ patient.ssn }}</td>
-                <td>{{ patient.birthdate }}</td>
-                <td>{{ patient.gender }}</td>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">SSN</th>
+                <th scope="col">Birth Date</th>
+                <th scope="col">Gender</th>
             </tr>
-</table>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ patient.first_name }}</td>
+                    <td>{{ patient.last_name }}</td>
+                    <td>{{ patient.ssn }}</td>
+                    <td>{{ patient.birthdate }}</td>
+                    <td>{{ patient.gender }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-<a href="{% url 'new-case' patient_id=patient.pk %}">Create New Report</a>
+    <div class="dr-box dr-box-search">
+        <a href="{% url 'new-case' patient_id=patient.pk %}">Create New Report</a>
+    </div>
+
+</section>
+
+
 {% endblock %}
